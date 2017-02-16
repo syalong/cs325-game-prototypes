@@ -21,8 +21,10 @@
 				game.load.image('cowboy', 'assets/cowboy.png');
 				game.load.spritesheet('cow', 'assets/cow.png');
 				
+				//game would disappear when added
 				//var style = {font: "25px Verdana", fill: #ffffff}
-				//var text = game.add.text(0,0, "Stress: " + stressCount + " ", style);
+				//Does concatenation work like it does in Java?
+				//var text = game.add.text(0,0, "Stress: " + stressCount, style);
 				//text.anchor.setTo(0.5,0);
 			}
 			
@@ -60,6 +62,7 @@
 				moo.body.collideWorldBounds = false;
 				moo.body.gravity.y = 30;
 				
+				//if used properly, could aid with my raining cows problem?
 				//var tween = game.add.tween(moo).to({game.world.randomY}, 2000, 'Linear', false);
 				total++;
 				timer = game.time.now + 100;
@@ -71,7 +74,7 @@
 				//to move as the cowboy left and right along the bottom of the screen
 				moveme.body.velocity.x = 0;
 				
-				if (total < 15 && game.time.now > timer)
+				if (total < 30 && game.time.now > timer)
 				{
 						cowChaos();
 				}
