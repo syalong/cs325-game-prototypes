@@ -35,30 +35,115 @@
 		var piece6;
 		var piece7;
 		
+		var rot;
+		var timer = 0;
+		var total = 0;
+		
 		function create() {
 			
 			//Add in all the puzzle pieces
-			piece1 = game.add.sprite(game.world.centerX, game.world.centerY, 'piece1');
-			piece2 = game.add.sprite(game.world.centerX, 400, 'piece2');
-			piece3 = game.add.sprite(game.world.centerX, 500, 'piece3');
-			piece4 = game.add.sprite(game.world.centerX, 600, 'piece4');
-			piece5 = game.add.sprite(game.world.centerX, 100, 'piece5');
-			piece6 = game.add.sprite(game.world.centerX, 0, 'piece6');
-			piece7 = game.add.sprite(game.world.centerX, 50, 'piece7');
+			piece1 = game.add.sprite(0, game.world.centerY, 'piece1');
+			piece2 = game.add.sprite(50, 400, 'piece2');
+			piece3 = game.add.sprite(100, 500, 'piece3');
+			piece4 = game.add.sprite(200, 250, 'piece4');
+			piece5 = game.add.sprite(0, 0, 'piece5');
+			piece6 = game.add.sprite(350, 0, 'piece6');
+			piece7 = game.add.sprite(500, 50, 'piece7');
 			
-			// Add some text using a CSS style.
-			// Center it in X, and position its top 15 pixels from the top of the world.
-			var style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-			var text = game.add.text( game.world.centerX, 15, "Build something amazing.", style );
-			text.anchor.setTo( 0.5, 0.0 );
+			//allow the pieces to react to input; code borrowed from Phaser example, snap on drag
+			piece1.inputEnabled = true;
+			piece2.inputEnabled = true;
+			piece3.inputEnabled = true;
+			piece4.inputEnabled = true;
+			piece5.inputEnabled = true;
+			piece6.inputEnabled = true;
+			piece7.inputEnabled = true;
+			
+			//allow the pieces to drag; code borrowed from snap on drag phaser example
+			piece1.input.enableDrag();
+			piece2.input.enableDrag();
+			piece3.input.enableDrag();
+			piece4.input.enableDrag();
+			piece5.input.enableDrag();
+			piece6.input.enableDrag();
+			piece7.input.enableDrag();
+			
+			//allow the pieces to snap; code borred from snap on drag phaser example
+			piece1.input.enableSnap(32, 32, false, true);
+			piece2.input.enableSnap(32, 32, false, true);
+			piece3.input.enableSnap(32, 32, false, true);
+			piece4.input.enableSnap(32, 32, false, true);
+			piece5.input.enableSnap(32, 32, false, true);
+			piece6.input.enableSnap(32, 32, false, true);
+			piece7.input.enableSnap(32, 32, false, true);
+			
+			//allow the pieces to be rotated with the R key; code borrowed from drag event parameters phaser example
+			piece1.events.onDragStart.add(onDragStart, this);
+			
+			rot = game.input.addKeys(Phaser.keyboard.R);
+			
+			quincy();
 		}
 		
+		
+		/*function onDragStart(sprite, pointer)
+		{
+			if (rot.isDown)
+			{
+				sprite.angle(90);
+			}
+		}*/
+		
+		function quincy()
+		{
+			var bePetty = Math.random() * 8;
+			
+			if (bePetty === 1)
+			{
+				piece1.angle = game.rnd.angle();
+			}
+			else if(bePetty === 2)
+			{
+				piece2.angle = game.rnd.angle();
+			}
+			else if(bePetty === 3)
+			{
+				piece3.angle = game.rnd.angle();
+			}
+			else if(bePetty === 4)
+			{
+				piece4.angle = game.rnd.angle();
+			}
+			else if(bePetty === 5)
+			{
+				piece5.angle = game.rnd.angle();
+			}
+			else if (bePetty === 6)
+			{
+				piece6.angle = game.rnd.angle();
+			}
+			else if(bePetty === 7)
+			{
+				piece7.angle = game.rnd.angle();
+			}
+			else
+			{
+				piece1.angle = game.rnd.angle();
+				piece2.angle = game.rnd.angle();
+				piece3.angle = game.rnd.angle();
+				piece4.angle = game.rnd.angle();
+				piece5.angle = game.rnd.angle();
+				piece6.angle = game.rnd.angle();
+				piece7.angle = game.rnd.angle();
+			}
+			total++;
+			timer = game.time.now + 1000;
+		}
 		function update() {
-			// Accelerate the 'logo' sprite towards the cursor,
-			// accelerating at 500 pixels/second and moving no faster than 500 pixels/second
-			// in X or Y.
-			// This function returns the rotation angle that makes it visually match its
-			// new trajectory.
-			//bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, this.game.input.activePointer, 500, 500, 500 );
+			if (total < 30 && game.time.now > timer)
+			{
+				quincy();
+			}
+			
 		}
 	};
